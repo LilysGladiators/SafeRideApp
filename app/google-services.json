@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "84053641638",
+    "project_id": "lilygladiators-7632e",
+    "storage_bucket": "lilygladiators-7632e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84053641638:android:093ebc67c01c239bffe767",
+        "android_client_info": {
+          "package_name": "com.example.saferide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmWuZX_GfUXPiZcU6fiR1f86i03psOZ8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Safe Ride</string>
+    <string name="driver">I\'m a Student Driver</string>
+    <string name="customer">I\'m a Student Customer</string>
+    <string name="gustavus_email">Gustavus email</string>
+    <string name="gustavus_password">Gustavus password</string>
+    <string name="login">LogIn</string>
+    <string name="register">Register</string>
+</resources>
