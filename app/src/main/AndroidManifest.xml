@@ -24,6 +24,7 @@
         <activity
             android:name=".DriverLoginActivity"
             android:exported="false" />
+
     </application>
 
 </manifest>
