@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         sCustomer.setOnClickListener {
-            val intent = Intent(this@MainActivity, CustomerLoginActivty::class.java)
+            val intent = Intent(this@MainActivity, CustomerLoginActivity::class.java)
             startActivity(intent)
             finish()
         }
