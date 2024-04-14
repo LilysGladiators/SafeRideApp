@@ -6,4 +6,6 @@
     <string name="gustavus_password">Gustavus password</string>
     <string name="login">LogIn</string>
     <string name="register">Register</string>
+    <string name="welcome_page_for_app">Welcome Page</string>
+    <string name="signup_page_for_drivers">The signup page for the drivers</string>
 </resources>

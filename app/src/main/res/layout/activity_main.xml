@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_welcome"
+    android:orientation="vertical"
     tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:gravity ="top">
 
-    <Button
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="594dp"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="25dp"
+        android:contentDescription="@string/welcome_page_for_app"
+        android:src="@drawable/welcome_icon" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/driver"
-        android:id="@+id/studentdriver"
-        />
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/customer"
-        android:id="@+id/studentcustomer"
-        />
+        <Button
+            android:id="@+id/studentdriver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/driver"
+            android:textColor="#000000" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/studentcustomer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/customer"
+            android:textColor="#000000"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

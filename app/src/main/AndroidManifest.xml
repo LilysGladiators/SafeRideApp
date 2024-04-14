@@ -26,6 +26,10 @@
             android:name=".DriverLoginActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".CustomerLoginActivty"
+            android:exported="false" />
+
     </application>
 
 </manifest>
