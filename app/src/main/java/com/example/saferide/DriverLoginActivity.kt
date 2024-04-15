@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 class DriverLoginActivity : AppCompatActivity() {
     private lateinit var gEmail: EditText
     private lateinit var gPassword: EditText
-    private lateinit var gLogin: Button
+    //private lateinit var gLogin: Button
     private lateinit var gRegister: Button
     private lateinit var gAuth: FirebaseAuth
     private lateinit var firebaseAuthListener: FirebaseAuth.AuthStateListener
@@ -36,7 +36,7 @@ class DriverLoginActivity : AppCompatActivity() {
         // Initialize the views
         gEmail = findViewById(R.id.email)
         gPassword = findViewById(R.id.password)
-        gLogin = findViewById(R.id.login)
+        //gLogin = findViewById(R.id.login)
         gRegister = findViewById(R.id.registration)
 
         // Set click listener for the register button
@@ -59,7 +59,7 @@ class DriverLoginActivity : AppCompatActivity() {
                 }
         }
 
-        gLogin.setOnClickListener{
+       /*gLogin.setOnClickListener{
             val email = gEmail.text.toString()
             val password = gPassword.text.toString()
 
@@ -69,7 +69,7 @@ class DriverLoginActivity : AppCompatActivity() {
                         Toast.makeText(this@DriverLoginActivity, "Sign in error", Toast.LENGTH_SHORT).show()
                     }
                 }
-        }
+        }*/
     }
 
     override fun onStart() {
