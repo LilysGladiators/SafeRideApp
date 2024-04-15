@@ -27,7 +27,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".CustomerLoginActivty"
+            android:name=".CustomerLoginActivity"
             android:exported="false" />
 
     </application>
