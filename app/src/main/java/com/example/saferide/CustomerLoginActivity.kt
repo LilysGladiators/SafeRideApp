@@ -58,7 +58,9 @@ class CustomerLoginActivty : AppCompatActivity() {
                 }
         }
 
+
       /* gLogin.setOnClickListener{
+
             val email = gEmail.text.toString()
             val password = gPassword.text.toString()
 
@@ -69,6 +71,7 @@ class CustomerLoginActivty : AppCompatActivity() {
                     }
                 }
         }*/
+
     }
 
     override fun onStart() {
@@ -81,3 +84,4 @@ class CustomerLoginActivty : AppCompatActivity() {
         gAuth.removeAuthStateListener(firebaseAuthListener)
     }
 }
+
