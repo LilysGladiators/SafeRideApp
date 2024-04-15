@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 
-class CustomerLoginActivty : AppCompatActivity() {
+class CustomerLoginActivity : AppCompatActivity() {
     private lateinit var gEmail: EditText
     private lateinit var gPassword: EditText
     //private lateinit var gLogin: Button
@@ -26,7 +26,7 @@ class CustomerLoginActivty : AppCompatActivity() {
         firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user: FirebaseUser? = firebaseAuth.currentUser
             if (user != null) {
-                val intent = Intent(this@CustomerLoginActivty, MapActivity::class.java)
+                val intent = Intent(this@CustomerLoginActivity, MapActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -46,7 +46,7 @@ class CustomerLoginActivty : AppCompatActivity() {
             gAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (!task.isSuccessful) {
-                        Toast.makeText(this@CustomerLoginActivty, "Sign up error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@CustomerLoginActivity, "Sign up error", Toast.LENGTH_SHORT).show()
                     } else {
                         val userId = gAuth.currentUser?.uid
                         val currentUserDb = FirebaseDatabase.getInstance().reference
@@ -67,7 +67,7 @@ class CustomerLoginActivty : AppCompatActivity() {
             gAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (!task.isSuccessful) {
-                        Toast.makeText(this@CustomerLoginActivty, "Sign in error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@CustomerLoginActivity, "Sign in error", Toast.LENGTH_SHORT).show()
                     }
                 }
         }*/

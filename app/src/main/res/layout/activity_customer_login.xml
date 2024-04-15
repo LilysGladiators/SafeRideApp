@@ -6,7 +6,7 @@
     android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
     android:backgroundTint="@color/white"
     android:orientation="vertical"
-    tools:context=".CustomerLoginActivty">
+    tools:context=".CustomerLoginActivity">
 
 
     <ImageView
