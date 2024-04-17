@@ -83,5 +83,11 @@ class CustomerLoginActivity : AppCompatActivity() {
         super.onStop()
         gAuth.removeAuthStateListener(firebaseAuthListener)
     }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 }
 
