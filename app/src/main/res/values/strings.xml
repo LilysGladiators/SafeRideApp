@@ -8,4 +8,7 @@
     <string name="register">Register</string>
     <string name="welcome_page_for_app">Welcome Page</string>
     <string name="signup_page_for_drivers">The signup page for the drivers</string>
+    <string name="test_text">Click on Me to Show Navigation Bar</string>
+    <string name="drawer_item_home">Home</string>
+    <string name="drawer_item_settings">Settings</string>
 </resources>
