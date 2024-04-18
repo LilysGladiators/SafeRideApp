@@ -29,7 +29,9 @@ class MapActivity: AppCompatActivity() {
         val email = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         val item1 = PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_home; identifier = 1 }
-        val item2 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_settings; identifier = 2 }
+        val item2 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_order; identifier = 2 }
+        val item3 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_waitlist; identifier = 3 }
+        val item4 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_settings; identifier = 4 }
 
         slider = findViewById(R.id.slider)
 
@@ -48,7 +50,9 @@ class MapActivity: AppCompatActivity() {
         slider.itemAdapter.add(
             item1,
             DividerDrawerItem(),
-            item2
+            item2,
+            item3,
+            item4
         )
 
         text = findViewById(R.id.simpleTextView)
