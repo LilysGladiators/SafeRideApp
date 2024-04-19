@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 
-class CustomerLoginActivity : AppCompatActivity() {
+class CustomerRegisterActivity : AppCompatActivity() {
     private lateinit var gEmail: EditText
     private lateinit var gPassword: EditText
     //private lateinit var gLogin: Button
@@ -26,7 +26,7 @@ class CustomerLoginActivity : AppCompatActivity() {
         firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user: FirebaseUser? = firebaseAuth.currentUser
             if (user != null) {
-                val intent = Intent(this@CustomerLoginActivity, MapActivity::class.java)
+                val intent = Intent(this@CustomerRegisterActivity, MapActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -46,7 +46,7 @@ class CustomerLoginActivity : AppCompatActivity() {
             gAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (!task.isSuccessful) {
-                        Toast.makeText(this@CustomerLoginActivity, "Sign up error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@CustomerRegisterActivity, "Sign up error", Toast.LENGTH_SHORT).show()
                     } else {
                         val userId = gAuth.currentUser?.uid
                         val currentUserDb = FirebaseDatabase.getInstance().reference
@@ -85,6 +85,7 @@ class CustomerLoginActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()

@@ -23,14 +23,15 @@
         </activity>
 
         <activity
-            android:name=".DriverLoginActivity"
+            android:name=".DriverRegisterActivity"
             android:exported="false" />
 
         <activity
-            android:name=".CustomerLoginActivity"
+            android:name=".CustomerRegisterActivity"
             android:exported="false" />
 
-        <activity android:name=".MapActivity"
+        <activity
+            android:name=".MapActivity"
             android:exported="false" />
 
     </application>

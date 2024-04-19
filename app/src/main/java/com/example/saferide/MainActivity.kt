@@ -18,13 +18,13 @@ class MainActivity : AppCompatActivity() {
         sCustomer = findViewById(R.id.studentcustomer)
 
         sDriver.setOnClickListener {
-            val intent = Intent(this@MainActivity, DriverLoginActivity::class.java)
+            val intent = Intent(this@MainActivity, DriverRegisterActivity::class.java)
             startActivity(intent)
             finish()
         }
 
         sCustomer.setOnClickListener {
-            val intent = Intent(this@MainActivity, CustomerLoginActivity::class.java)
+            val intent = Intent(this@MainActivity, CustomerRegisterActivity::class.java)
             startActivity(intent)
             finish()
         }
