@@ -13,7 +13,6 @@ import com.google.firebase.database.FirebaseDatabase
 class DriverRegisterActivity : AppCompatActivity() {
     private lateinit var gEmail: EditText
     private lateinit var gPassword: EditText
-    //private lateinit var gLogin: Button
     private lateinit var gRegister: Button
     private lateinit var gAuth: FirebaseAuth
     private lateinit var firebaseAuthListener: FirebaseAuth.AuthStateListener
@@ -57,18 +56,6 @@ class DriverRegisterActivity : AppCompatActivity() {
                     }
                 }
         }
-
-       /*gLogin.setOnClickListener{
-            val email = gEmail.text.toString()
-            val password = gPassword.text.toString()
-
-            gAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (!task.isSuccessful) {
-                        Toast.makeText(this@DriverLoginActivity, "Sign in error", Toast.LENGTH_SHORT).show()
-                    }
-                }
-        }*/
     }
 
     override fun onStart() {

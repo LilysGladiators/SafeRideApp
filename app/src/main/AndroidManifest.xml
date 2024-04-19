@@ -26,6 +26,7 @@
             android:name=".DriverRegisterActivity"
             android:exported="false" />
 
+
         <activity
             android:name=".CustomerRegisterActivity"
             android:exported="false" />

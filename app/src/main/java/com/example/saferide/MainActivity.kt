@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
+    //fixed file names from login to register
 
     private lateinit var sDriver: Button
     private lateinit var sCustomer: Button
