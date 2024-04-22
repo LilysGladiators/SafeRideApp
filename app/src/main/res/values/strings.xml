@@ -13,4 +13,5 @@
     <string name="drawer_item_settings">Settings</string>
     <string name="drawer_item_order">Order a Ride</string>
     <string name="drawer_item_waitlist">Waitlist</string>
+    <string name="loginHeader">Login</string>
 </resources>

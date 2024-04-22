@@ -19,7 +19,7 @@ class CustomerRegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_customer_login)
+        setContentView(R.layout.activity_customer_register)
 
         gAuth = FirebaseAuth.getInstance()
         firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
@@ -34,7 +34,6 @@ class CustomerRegisterActivity : AppCompatActivity() {
         // Initialize the views
         gEmail = findViewById(R.id.email)
         gPassword = findViewById(R.id.password)
-        //gLogin = findViewById(R.id.login)
         gRegister = findViewById(R.id.registration)
 
         // Set click listener for the register button
