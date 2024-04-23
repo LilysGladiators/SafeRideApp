@@ -6,17 +6,7 @@
     android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
     android:backgroundTint="@color/white"
     android:orientation="vertical"
-    tools:context=".DriverLoginActivity">
-
-    <TextView
-        android:id="@+id/loginHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:text="@string/loginHeader"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+    tools:context=".DriverRegisterActivity">
 
 
     <ImageView
@@ -26,10 +16,10 @@
         android:layout_above="@+id/linearLayout"
         android:layout_alignParentTop="true"
         android:layout_gravity="center"
-        android:layout_marginTop="84dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="62dp"
         android:contentDescription="@string/signup_page_for_drivers"
-        android:src="@drawable/login_icon" />
+        android:src="@drawable/register_icon" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -56,10 +46,10 @@
 
 
         <Button
-            android:id="@+id/login"
+            android:id="@+id/registration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login" />
+            android:text="@string/register" />
 
 
 

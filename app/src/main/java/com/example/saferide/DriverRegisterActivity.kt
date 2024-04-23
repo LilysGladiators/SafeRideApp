@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 
+
 class DriverRegisterActivity : AppCompatActivity() {
     private lateinit var gEmail: EditText
     private lateinit var gPassword: EditText
@@ -19,7 +20,7 @@ class DriverRegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_driver_login)
+        setContentView(R.layout.activity_driver_registration)
 
         gAuth = FirebaseAuth.getInstance()
         firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
@@ -28,13 +29,17 @@ class DriverRegisterActivity : AppCompatActivity() {
                 val intent = Intent(this@DriverRegisterActivity, MapActivity::class.java)
                 startActivity(intent)
                 finish()
+            } else {
+                // User is not logged in, navigate to the DriverLoginActivity
+                val intent = Intent(this@DriverRegisterActivity, DriverLoginActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
 
         // Initialize the views
         gEmail = findViewById(R.id.email)
         gPassword = findViewById(R.id.password)
-        //gLogin = findViewById(R.id.login)
         gRegister = findViewById(R.id.registration)
 
         // Set click listener for the register button
@@ -44,15 +49,20 @@ class DriverRegisterActivity : AppCompatActivity() {
 
             gAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
-                    if (!task.isSuccessful) {
-                        Toast.makeText(this@DriverRegisterActivity, "Sign up error", Toast.LENGTH_SHORT).show()
-                    } else {
+                    if (task.isSuccessful) {
                         val userId = gAuth.currentUser?.uid
                         val currentUserDb = FirebaseDatabase.getInstance().reference
                             .child("Users")
                             .child("Drivers")
                             .child(userId!!)
                         currentUserDb.setValue(true)
+
+                        // Registration successful, navigate to the LoginActivity
+                        val intent = Intent(this@DriverRegisterActivity, DriverLoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this@DriverRegisterActivity, "Sign up error", Toast.LENGTH_SHORT).show()
                     }
                 }
         }

@@ -8,6 +8,16 @@
     android:orientation="vertical"
     tools:context=".CustomerLoginActivity">
 
+    <TextView
+        android:id="@+id/loginHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="@string/loginHeader"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
 
     <ImageView
         android:id="@+id/imageView"
@@ -16,10 +26,10 @@
         android:layout_above="@+id/linearLayout"
         android:layout_alignParentTop="true"
         android:layout_gravity="center"
-        android:layout_marginTop="22dp"
-        android:layout_marginBottom="62dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/signup_page_for_drivers"
-        android:src="@drawable/register_icon" />
+        android:src="@drawable/login_icon" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -46,10 +56,10 @@
 
 
         <Button
-            android:id="@+id/registration"
+            android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/register" />
+            android:text="@string/login" />
 
 
 
