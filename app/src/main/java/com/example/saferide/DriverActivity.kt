@@ -16,7 +16,7 @@ class DriverActivity : AppCompatActivity() {
         val buttonCancelRide = findViewById<Button>(R.id.buttonCancelRide)
 
         // Set onClick listeners for the buttons
-        buttonAcceptRide.setOnClickListener {
+        buttonRequestRide.setOnClickListener {
             Toast.makeText(this, "Accept Ride...", Toast.LENGTH_SHORT).show()
             // Add actual functionality here to request a ride
         }

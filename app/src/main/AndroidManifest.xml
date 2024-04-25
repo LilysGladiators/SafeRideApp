@@ -42,6 +42,9 @@
         <activity
             android:name=".CustomerLoginActivity"
             android:exported="false" />
+        <activity
+            android:name=".CustomerActivity"
+            android:exported="false"/>
 
 
     </application>
