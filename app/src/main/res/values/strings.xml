@@ -16,4 +16,5 @@
     <string name="loginHeader">Login</string>
     <string name="cancel_ride">Cancel Ride</string>
     <string name="request_ride">Request Ride</string>
+    <string name="accept_ride">Accept Ride</string>
 </resources>
