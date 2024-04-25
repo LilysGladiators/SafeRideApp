@@ -14,4 +14,6 @@
     <string name="drawer_item_order">Order a Ride</string>
     <string name="drawer_item_waitlist">Waitlist</string>
     <string name="loginHeader">Login</string>
+    <string name="cancel_ride">Cancel Ride</string>
+    <string name="request_ride">Request Ride</string>
 </resources>
