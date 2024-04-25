@@ -33,7 +33,7 @@ class CustomerLoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Login successful, navigate to the MapActivity
-                        val intent = Intent(this@CustomerLoginActivity, MapActivity::class.java)
+                        val intent = Intent(this@CustomerLoginActivity, CustomerActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
