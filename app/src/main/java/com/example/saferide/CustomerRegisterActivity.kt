@@ -25,7 +25,7 @@ class CustomerRegisterActivity : AppCompatActivity() {
         firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user: FirebaseUser? = firebaseAuth.currentUser
             if (user != null) {
-                val intent = Intent(this@CustomerRegisterActivity, MapActivity::class.java)
+                val intent = Intent(this@CustomerRegisterActivity, CustomerActivity::class.java)
                 startActivity(intent)
                 finish()
             }

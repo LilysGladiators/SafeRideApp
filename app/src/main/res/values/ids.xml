@@ -4,4 +4,5 @@
     <item name="email" type="id" />
     <item name="password" type="id"/>
     <item name="registration" type="id"/>
+    <item name="requestRideButton" type="id"/>
 </resources>

@@ -32,7 +32,9 @@ class CustomerLoginActivity : AppCompatActivity() {
             gAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Login successful, navigate to the MapActivity
+                      
+                        // Login successful, navigate to the CustomerActivity
+
                         val intent = Intent(this@CustomerLoginActivity, CustomerActivity::class.java)
                         startActivity(intent)
                         finish()
