@@ -26,7 +26,7 @@ class DriverRegisterActivity : AppCompatActivity() {
         firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user: FirebaseUser? = firebaseAuth.currentUser
             if (user != null) {
-                val intent = Intent(this@DriverRegisterActivity, MapActivity::class.java)
+                val intent = Intent(this@DriverRegisterActivity, CustomerActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {

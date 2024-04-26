@@ -32,8 +32,8 @@ class DriverLoginActivity : AppCompatActivity() {
             gAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Login successful, navigate to the MapActivity
-                        val intent = Intent(this@DriverLoginActivity, MapActivity::class.java)
+                        // Login successful, navigate to the CustomerActivity
+                        val intent = Intent(this@DriverLoginActivity, CustomerActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {

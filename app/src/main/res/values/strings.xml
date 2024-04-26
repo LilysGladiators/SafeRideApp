@@ -19,4 +19,5 @@
     <string name="request_ride">Request Ride</string>
     <string name="ride_requests">Ride Requests</string>
     <string name="waiting_for_driver">Waiting For Driver</string>
+    <string name="cancel_ride">Cancel Ride</string>
 </resources>
