@@ -1,6 +1,8 @@
 package com.example.saferide
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -20,6 +22,8 @@ class MapActivity: AppCompatActivity() {
 
     private lateinit var slider: MaterialDrawerSliderView
     private lateinit var text: TextView
+    private lateinit var requestRideButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
@@ -66,5 +70,15 @@ class MapActivity: AppCompatActivity() {
             false
         }
 
+        requestRideButton = findViewById(R.id.requestRideButton)
+        requestRideButton.setOnClickListener {
+            startRideRequestActivity()
+        }
+
+    }
+
+    private fun startRideRequestActivity() {
+        val intent = Intent(this, RideRequestActivity::class.java)
+        startActivity(intent)
     }
 }
