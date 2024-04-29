@@ -12,7 +12,7 @@ class DriverActivity : AppCompatActivity() {
         setContentView(R.layout.activity_customer)
 
         // Initialize buttons
-        val buttonRequestRide = findViewById<Button>(R.id.buttonRequestRide)
+        val buttonAcceptRide = findViewById<Button>(R.id.buttonRequestRide)
         val buttonCancelRide = findViewById<Button>(R.id.buttonCancelRide)
 
         // Set onClick listeners for the buttons
