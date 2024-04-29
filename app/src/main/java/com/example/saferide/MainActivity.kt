@@ -44,11 +44,15 @@ class MainActivity : AppCompatActivity() {
             if (driverSnapshot.exists()) {
                 // User is registered as a driver, navigate to the DriverLoginActivity
                 navigateToDriverLogin()
+                // ******MAKE SURE TO ADD THIS BACK IN WHEN DONE DEBUGGING********
+                //navigateTFOuttaLogin()
             } else {
                 userRef.child("Customers").child(userId).get().addOnSuccessListener { customerSnapshot ->
                     if (customerSnapshot.exists()) {
                         // User is registered as a customer, navigate to the CustomerLoginActivity
-                        navigateToCustomerLogin()
+                        navigateToDriverLogin()
+                        // ADD BACK AS WELL *************
+                        //navigateTFOuttaLogin()
                     } else {
                         // User is not registered as either driver or customer, show the driver and customer buttons
                         showRoleButtons()
@@ -66,6 +70,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToCustomerLogin() {
         val intent = Intent(this, CustomerLoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    // Sam added just so I don't have to log in every time I'm testing lol
+    private fun navigateTFOuttaLogin() {
+        val intent = Intent(this, CustomerActivity::class.java)
         startActivity(intent)
         finish()
     }

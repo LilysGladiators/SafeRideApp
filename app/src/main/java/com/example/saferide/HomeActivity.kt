@@ -1,11 +1,10 @@
 package com.example.saferide
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import android.content.Intent
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
@@ -18,14 +17,16 @@ import com.mikepenz.materialdrawer.model.interfaces.nameText
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 
-class CustomerActivity : AppCompatActivity() {
+
+class HomeActivity: AppCompatActivity() {
+
     private lateinit var slider: MaterialDrawerSliderView
     private lateinit var text: TextView
-    //private lateinit var requestRideButton: Button
+    private lateinit var requestRideButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_customer)
+        setContentView(R.layout.activity_home)
 
         // Need to create some sort of username creation system likely?
         //val user = FirebaseAuth.getInstance().currentUser.toString()
@@ -56,7 +57,7 @@ class CustomerActivity : AppCompatActivity() {
             item3
         )
 
-        slider.setSelection(2)
+        slider.setSelection(1)
 
         text = findViewById(R.id.simpleTextView)
         text.setOnClickListener {
@@ -66,27 +67,17 @@ class CustomerActivity : AppCompatActivity() {
         slider.onDrawerItemClickListener = { _, drawerItem, _ ->
             // do something with clicked item :D
             when (drawerItem) {
-                item1 -> startHomeActivity()
-                //item2 -> insert here
+                //item1 -> is this view
+                item2 -> startCustomerActivity()
                 item3 -> startMapActivity()
             }
             false
         }
-        // Initialize buttons
-        val buttonRequestRide = findViewById<Button>(R.id.buttonRequestRide)
-        val buttonCancelRide = findViewById<Button>(R.id.buttonCancelRide)
 
-        // Set onClick listeners for the buttons
-        buttonRequestRide.setOnClickListener {
+        /*requestRideButton = findViewById(R.id.requestRideButton)
+        requestRideButton.setOnClickListener {
             startRideRequestActivity()
-            //Toast.makeText(this, "Requesting Ride...", Toast.LENGTH_SHORT).show()
-            // Add actual functionality here to request a ride
-        }
-
-        buttonCancelRide.setOnClickListener {
-            Toast.makeText(this, "Cancelling Ride...", Toast.LENGTH_SHORT).show()
-            // Add actual functionality here to cancel a ride
-        }
+        }*/
 
     }
 
@@ -96,14 +87,14 @@ class CustomerActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun startMapActivity() {
-        val intent = Intent(this, MapActivity::class.java)
+    private fun startCustomerActivity() {
+        val intent = Intent(this, CustomerActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    private fun startHomeActivity() {
-        val intent = Intent(this, HomeActivity::class.java)
+    private fun startMapActivity() {
+        val intent = Intent(this, MapActivity::class.java)
         startActivity(intent)
         finish()
     }

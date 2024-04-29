@@ -9,9 +9,17 @@ android {
     namespace = "com.example.saferide"
     compileSdk = 34
 
+    /*buildFeatures {
+        buildConfig = true
+    }*/
+
+    packaging {
+        jniLibs.pickFirsts.add("lib/**/libc++_shared.so")
+    }
+
     defaultConfig {
         applicationId = "com.example.saferide"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -39,6 +47,10 @@ android {
 
 dependencies {
 
+    val version = "0.50.6"
+    //implementation("com.tomtom.sdk.maps:map-display:$version")
+    implementation("com.tomtom.sdk.routing:route-planner-online:$version")
+
     implementation("androidx.core:core-ktx:1.13.0")
 
     implementation("com.mikepenz:materialdrawer:9.0.1")
@@ -64,4 +76,5 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
 }
