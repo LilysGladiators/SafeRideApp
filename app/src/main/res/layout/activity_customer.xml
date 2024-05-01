@@ -13,12 +13,12 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <TextView
-            android:id="@+id/simpleTextView"
+        <Button
+            android:id="@+id/navigationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@string/test_text" />
+            android:text="@string/navigation_text" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/request_ride"
-                android:background="@android:color/holo_blue_dark"
+                android:backgroundTint="@android:color/holo_blue_dark"
                 android:textColor="@android:color/white"
                 android:layout_marginEnd="16dp" />
 
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cancel_ride"
-                android:background="@android:color/holo_red_dark"
+                android:backgroundTint="@android:color/holo_red_dark"
                 android:textColor="@android:color/white" />
 
         </LinearLayout>

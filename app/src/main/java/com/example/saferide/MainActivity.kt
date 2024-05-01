@@ -54,10 +54,10 @@ class MainActivity : AppCompatActivity() {
                 userRef.child("Customers").child(userId).get().addOnSuccessListener { customerSnapshot ->
                     if (customerSnapshot.exists()) {
                         // User is registered as a customer, navigate to the CustomerLoginActivity
-                        //navigateToCustomerLogin()
+                        navigateToCustomerLogin()
                         Log.d(TAG, "Customer Login")
                         // ADD BACK AS WELL *************
-                        navigateTFOuttaLogin()
+                        //navigateTFOuttaLogin()
                     } else {
                         // User is not registered as either driver or customer, show the driver and customer buttons
                         showRoleButtons()

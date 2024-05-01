@@ -119,7 +119,7 @@ class EtaActivity: AppCompatActivity() {
 
         slider.setSelection(3)
 
-        text = findViewById(R.id.simpleTextView)
+        text = findViewById(R.id.navigationButton)
         text.setOnClickListener {
             slider.drawerLayout?.openDrawer(slider)
         }
