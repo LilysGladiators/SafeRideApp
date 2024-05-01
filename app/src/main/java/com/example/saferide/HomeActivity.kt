@@ -94,7 +94,7 @@ class HomeActivity: AppCompatActivity() {
     }
 
     private fun startMapActivity() {
-        val intent = Intent(this, MapActivity::class.java)
+        val intent = Intent(this, EtaActivity::class.java)
         startActivity(intent)
         finish()
     }

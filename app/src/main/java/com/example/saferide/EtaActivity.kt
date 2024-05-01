@@ -70,14 +70,14 @@ private val tenHouse = GeoPoint(44.320540, -93.969755)
 private val adolphsonHouse = GeoPoint(44.320540, -93.969755)
 
 private val routePlanningOptions = RoutePlanningOptions(
-    itinerary = Itinerary(southwest, petersonHouse),
-    vehicle = Vehicle.Van(maxSpeed = Speed.milesPerHour(20))
+    itinerary = Itinerary(rundy, prarieView),
+    vehicle = Vehicle.Van(maxSpeed = Speed.milesPerHour(15))
 )
 
 private var plannedRoute: Route? = null
 private lateinit var countDownTimer: CountDownTimer
 
-class MapActivity: AppCompatActivity() {
+class EtaActivity: AppCompatActivity() {
 
     private lateinit var slider: MaterialDrawerSliderView
     private lateinit var text: TextView
@@ -86,7 +86,7 @@ class MapActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+        setContentView(R.layout.activity_eta)
 
         // Need to create some sort of username creation system likely?
         //val user = FirebaseAuth.getInstance().currentUser.toString()
