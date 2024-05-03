@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/pickup_location"
+            android:textColorHint="@color/black"
             android:inputType="text" />
 
         <EditText
@@ -28,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/destination"
+            android:textColorHint="@color/black"
             android:inputType="text" />
 
         <Button
