@@ -35,7 +35,8 @@
             android:textColor="@color/black"
             android:background="@android:drawable/editbox_dropdown_dark_frame"
             android:backgroundTint="@color/common_google_signin_btn_text_light_disabled"
-            android:hint="@string/gustavus_email" />
+            android:hint="@string/gustavus_email"
+            android:textColorHint="#7E7E7E"/>
 
         <EditText
             android:id="@+id/password"
@@ -44,7 +45,8 @@
             android:textColor="@color/black"
             android:background="@android:drawable/editbox_dropdown_dark_frame"
             android:backgroundTint="@color/common_google_signin_btn_text_dark_disabled"
-            android:hint="@string/gustavus_password" />
+            android:hint="@string/gustavus_password"
+            android:textColorHint="#7E7E7E"/>
 
 
         <Button
