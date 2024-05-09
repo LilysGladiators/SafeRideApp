@@ -80,7 +80,7 @@ private lateinit var countDownTimer: CountDownTimer
 class EtaActivity: AppCompatActivity() {
 
     private lateinit var slider: MaterialDrawerSliderView
-    private lateinit var text: TextView
+    private lateinit var navigationButton: Button
     private lateinit var requestRideButton: Button
     private lateinit var etaText: TextView
 
@@ -119,8 +119,8 @@ class EtaActivity: AppCompatActivity() {
 
         slider.setSelection(3)
 
-        text = findViewById(R.id.navigationButton)
-        text.setOnClickListener {
+        navigationButton = findViewById(R.id.navigationButton)
+        navigationButton.setOnClickListener {
             slider.drawerLayout?.openDrawer(slider)
         }
 

@@ -18,7 +18,7 @@ import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 
 
-class HomeActivity: AppCompatActivity() {
+class DriverHomeActivity: AppCompatActivity() {
 
     private lateinit var slider: MaterialDrawerSliderView
     private lateinit var button: Button
@@ -27,22 +27,22 @@ class HomeActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.driver_activity_home)
 
         // Need to create some sort of username creation system likely?
-        //val user = FirebaseAuth.getInstance().currentUser.toString()
-        val email = FirebaseAuth.getInstance().currentUser?.email.toString()
+        val user = FirebaseAuth.getInstance().currentUser?.email.toString()
+        //val email = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         val item1 = PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_home; identifier = 1 }
         val item2 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_order; identifier = 2 }
-        val item3 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_eta; identifier = 3 }
+        //val item3 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_eta; identifier = 3 }
 
         slider = findViewById(R.id.slider)
 
         slider.headerView = AccountHeaderView(this).apply {
             attachToSliderView(slider)
             addProfiles(
-                ProfileDrawerItem().apply { nameText = "USERNAME"; descriptionText = email; iconRes = R.drawable.ic_launcher_foreground; identifier = 102}
+                ProfileDrawerItem().apply { nameText = "Student Driver"; descriptionText = user; iconRes = R.drawable.ic_launcher_foreground; identifier = 102}
             )
             onAccountHeaderListener = { view, profile, current ->
                 //react to profile changes
@@ -54,8 +54,7 @@ class HomeActivity: AppCompatActivity() {
         slider.itemAdapter.add(
             item1,
             DividerDrawerItem(),
-            item2,
-            item3
+            item2
         )
 
         slider.setSelection(1)
@@ -70,8 +69,7 @@ class HomeActivity: AppCompatActivity() {
             // do something with clicked item :D
             when (drawerItem) {
                 //item1 -> is this view
-                item2 -> startCustomerActivity()
-                item3 -> startMapActivity()
+                item2 -> startDriverActivity()
             }
             false
         }
@@ -89,8 +87,8 @@ class HomeActivity: AppCompatActivity() {
         finish()
     }
 
-    private fun startCustomerActivity() {
-        val intent = Intent(this, CustomerActivity::class.java)
+    private fun startDriverActivity() {
+        val intent = Intent(this, DriverActivity::class.java)
         startActivity(intent)
         finish()
     }

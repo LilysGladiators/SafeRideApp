@@ -1,7 +1,9 @@
 package com.example.saferide
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -26,14 +28,16 @@ class DriverRegisterActivity : AppCompatActivity() {
         firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user: FirebaseUser? = firebaseAuth.currentUser
             if (user != null) {
-                val intent = Intent(this@DriverRegisterActivity, CustomerActivity::class.java)
+                Log.d(TAG, "User != null!!!")
+                /*val intent = Intent(this@DriverRegisterActivity, CustomerActivity::class.java)
                 startActivity(intent)
-                finish()
+                finish()*/
             } else {
+                Log.d(TAG, "User == null!!!")
                 // User is not logged in, navigate to the DriverLoginActivity
-                val intent = Intent(this@DriverRegisterActivity, DriverLoginActivity::class.java)
+                /*val intent = Intent(this@DriverRegisterActivity, DriverLoginActivity::class.java)
                 startActivity(intent)
-                finish()
+                finish()*/
             }
         }
 

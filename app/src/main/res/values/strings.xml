@@ -23,4 +23,6 @@
     <string name="accept_ride">Accept Ride</string>
     <string name="eta_placeholder">Calculating ETA…</string>
     <string name="arrivalText">Your ride has arrived</string>
+    <string name="welcomeText">Welcome to Safe Rides!</string>
+    <string name="navigationButton">Menu</string>
 </resources>

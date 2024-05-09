@@ -46,10 +46,10 @@ class MainActivity : AppCompatActivity() {
         userRef.child("Drivers").child(userId).get().addOnSuccessListener { driverSnapshot ->
             if (driverSnapshot.exists()) {
                 // User is registered as a driver, navigate to the DriverLoginActivity
-                navigateToDriverLogin()
+                //navigateToDriverLogin()
                 Log.d(TAG,"Driver login")
                 // ******MAKE SURE TO ADD THIS BACK IN WHEN DONE DEBUGGING********
-                //navigateTFOuttaLogin()
+                navigateTFOuttaLogin()
             } else {
                 userRef.child("Customers").child(userId).get().addOnSuccessListener { customerSnapshot ->
                     if (customerSnapshot.exists()) {
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     // Sam added just so I don't have to log in every time I'm testing lol
     private fun navigateTFOuttaLogin() {
-        val intent = Intent(this, DriverActivity::class.java)
+        val intent = Intent(this, DriverRegisterActivity::class.java)
         startActivity(intent)
         finish()
     }
