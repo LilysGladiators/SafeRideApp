@@ -42,7 +42,7 @@ class HomeActivity: AppCompatActivity() {
         slider.headerView = AccountHeaderView(this).apply {
             attachToSliderView(slider)
             addProfiles(
-                ProfileDrawerItem().apply { nameText = "USERNAME"; descriptionText = email; iconRes = R.drawable.ic_launcher_foreground; identifier = 102}
+                ProfileDrawerItem().apply { nameText = "Student Customer"; descriptionText = email; iconRes = R.drawable.ic_launcher_foreground; identifier = 102}
             )
             onAccountHeaderListener = { view, profile, current ->
                 //react to profile changes
