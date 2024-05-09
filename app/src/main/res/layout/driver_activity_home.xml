@@ -34,7 +34,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:textSize="30sp"
             android:text="@string/welcomeText"/>
+        <TextView
+            android:id="@+id/waitlistText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="0 People Currently Waiting for Rides"/>
 
 
     </LinearLayout>

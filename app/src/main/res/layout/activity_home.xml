@@ -33,7 +33,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:textSize="30sp"
             android:text="@string/welcomeText"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You are 1st in Line"
+            android:textSize="15sp"/>
 
 
     </LinearLayout>
