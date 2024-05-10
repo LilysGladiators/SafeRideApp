@@ -1,29 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".CustomerActivity">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/buttonRequestRide"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="top">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/navigationButton"
+            android:layout_width="98dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/common_google_signin_btn_text_light_default"
+            android:gravity="center_horizontal"
+            android:text="@string/navigationButton"
+            app:cornerRadius="10dp" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/buttonAcceptRide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/accept_ride"
+                android:textSize="20sp"
+                android:backgroundTint="@android:color/holo_blue_dark"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="16dp"/>
+
+            <Button
+                android:id="@+id/buttonCancelRide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel_ride"
+                android:textSize="20sp"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:textColor="@android:color/white" />
+
+
+
+    </LinearLayout>
+
+    <com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
+        android:id="@+id/slider"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/accept_ride"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:background="@android:color/holo_blue_dark"
-        android:textColor="@android:color/white" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true" />
 
-    <Button
-        android:id="@+id/buttonCancelRide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/cancel_ride"
-        android:layout_below="@id/buttonRequestRide"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/holo_red_dark"
-        android:textColor="@android:color/white" />
-
-</RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

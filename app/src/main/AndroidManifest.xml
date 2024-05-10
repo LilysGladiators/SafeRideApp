@@ -34,8 +34,12 @@
             android:exported="false" />
 
         <activity
-            android:name=".MapActivity"
+            android:name=".EtaActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".DriverActivity"
+            android:exported="false"/>
 
         <activity
             android:name=".DriverLoginActivity"
@@ -75,6 +79,10 @@
 
         <activity
             android:name=".HomeActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".DriverHomeActivity"
             android:exported="false"/>
 
         <meta-data

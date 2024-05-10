@@ -70,23 +70,23 @@ private val tenHouse = GeoPoint(44.320540, -93.969755)
 private val adolphsonHouse = GeoPoint(44.320540, -93.969755)
 
 private val routePlanningOptions = RoutePlanningOptions(
-    itinerary = Itinerary(southwest, petersonHouse),
-    vehicle = Vehicle.Van(maxSpeed = Speed.milesPerHour(20))
+    itinerary = Itinerary(rundy, prarieView),
+    vehicle = Vehicle.Van(maxSpeed = Speed.milesPerHour(15))
 )
 
 private var plannedRoute: Route? = null
 private lateinit var countDownTimer: CountDownTimer
 
-class MapActivity: AppCompatActivity() {
+class EtaActivity: AppCompatActivity() {
 
     private lateinit var slider: MaterialDrawerSliderView
-    private lateinit var text: TextView
+    private lateinit var navigationButton: Button
     private lateinit var requestRideButton: Button
     private lateinit var etaText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+        setContentView(R.layout.activity_eta)
 
         // Need to create some sort of username creation system likely?
         //val user = FirebaseAuth.getInstance().currentUser.toString()
@@ -101,7 +101,7 @@ class MapActivity: AppCompatActivity() {
         slider.headerView = AccountHeaderView(this).apply {
             attachToSliderView(slider)
             addProfiles(
-                ProfileDrawerItem().apply { nameText = "USERNAME"; descriptionText = email; iconRes = R.drawable.ic_launcher_foreground; identifier = 102}
+                ProfileDrawerItem().apply { nameText = "Student Customer"; descriptionText = email; iconRes = R.drawable.ic_launcher_foreground; identifier = 102}
             )
             onAccountHeaderListener = { view, profile, current ->
                 //react to profile changes
@@ -119,8 +119,8 @@ class MapActivity: AppCompatActivity() {
 
         slider.setSelection(3)
 
-        text = findViewById(R.id.simpleTextView)
-        text.setOnClickListener {
+        navigationButton = findViewById(R.id.navigationButton)
+        navigationButton.setOnClickListener {
             slider.drawerLayout?.openDrawer(slider)
         }
 
