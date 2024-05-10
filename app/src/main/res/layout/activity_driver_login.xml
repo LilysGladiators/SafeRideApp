@@ -50,6 +50,7 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="55dp"
+            android:inputType="textPassword"
             android:background="@android:drawable/editbox_dropdown_dark_frame"
             android:backgroundTint="@color/common_google_signin_btn_text_dark_disabled"
             android:hint="@string/gustavus_password" />

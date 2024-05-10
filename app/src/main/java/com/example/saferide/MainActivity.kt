@@ -46,10 +46,10 @@ class MainActivity : AppCompatActivity() {
         userRef.child("Drivers").child(userId).get().addOnSuccessListener { driverSnapshot ->
             if (driverSnapshot.exists()) {
                 // User is registered as a driver, navigate to the DriverLoginActivity
-                //navigateToDriverLogin()
+                navigateToDriverLogin()
                 Log.d(TAG,"Driver login")
                 // ******MAKE SURE TO ADD THIS BACK IN WHEN DONE DEBUGGING********
-                navigateTFOuttaLogin()
+                //navigateTFOuttaLogin()
             } else {
                 userRef.child("Customers").child(userId).get().addOnSuccessListener { customerSnapshot ->
                     if (customerSnapshot.exists()) {
