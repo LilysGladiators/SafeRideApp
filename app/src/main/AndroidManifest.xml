@@ -47,6 +47,15 @@
         <activity
             android:name=".CustomerActivity"
             android:exported="false"/>
+        <activity
+            android:name=".ModeratorActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ModeratorRegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ModeratorLoginActivity"
+            android:exported="false" />
 
         <activity
             android:name=".RideRequestActivity"
