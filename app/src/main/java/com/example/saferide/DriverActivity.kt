@@ -6,6 +6,9 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.FieldValue
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
@@ -21,6 +24,7 @@ class DriverActivity : AppCompatActivity() {
 
     private lateinit var slider: MaterialDrawerSliderView
     private lateinit var navigationButton: Button
+    private var currentStudent: Map<String, Any>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +51,7 @@ class DriverActivity : AppCompatActivity() {
             withSavedInstance(savedInstanceState)
         }
 
-        slider.itemAdapter.add(
-            item1,
-            DividerDrawerItem(),
-            item2
-        )
-
+        slider.itemAdapter.add(item1,DividerDrawerItem(),item2)
         slider.setSelection(2)
 
         navigationButton = findViewById(R.id.navigationButton)
@@ -76,14 +75,54 @@ class DriverActivity : AppCompatActivity() {
 
         // Set onClick listeners for the buttons
         buttonAcceptRide.setOnClickListener {
-            Toast.makeText(this, "Accept Ride...", Toast.LENGTH_SHORT).show()
+            currentStudent?.let {
+                removeFromQueue(it)
+                Toast.makeText(this, "Ride Accepted!", Toast.LENGTH_SHORT).show()
             // Add actual functionality here to accept a ride
+            } ?: Toast.makeText(this, "No ride to accept", Toast.LENGTH_SHORT).show()
         }
 
         buttonCancelRide.setOnClickListener {
-            Toast.makeText(this, "Cancelling Ride...", Toast.LENGTH_SHORT).show()
+            currentStudent?.let {
+                removeFromQueue(it)
+                Toast.makeText(this, "Ride Cancelled!", Toast.LENGTH_SHORT).show()
             // Add actual functionality here to cancel a ride
+            } ?: Toast.makeText(this, "No ride to cancel", Toast.LENGTH_SHORT).show()
         }
+        // Fetch the next student in the queue when activity starts
+        fetchNextStudentInQueue()
+    }
+
+    private fun fetchNextStudentInQueue() {
+        val db = Firebase.firestore
+        val waitlistRef = db.collection("SafeRide_FS").document("Waitlist")
+
+        waitlistRef.get().addOnSuccessListener { document ->
+            val waitingList = document["Waiting_Students"] as? List<Map<String, Any>> ?: listOf()
+            if (waitingList.isNotEmpty()) {
+                val sortedList = waitingList.sortedBy { (it["timestamp"] as? com.google.firebase.Timestamp)?.seconds ?: 0L }
+                currentStudent = sortedList.firstOrNull()
+                currentStudent?.let {
+                    Toast.makeText(this, "Next ride request: ${it["studentId"]}", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "No ride requests in currently", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener{ e ->
+            Toast.makeText(this, "Error retrieving waitlist: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun removeFromQueue(student: Map<String, Any>) {
+        val db = Firebase.firestore
+        val waitlistRef = db.collection("SafeRide_FS").document("Waitlist")
+        waitlistRef.update("Waiting_Students", FieldValue.arrayRemove(student))
+            .addOnSuccessListener {
+                currentStudent = null
+                Toast.makeText(this, "Student removed from queue", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener{ e ->
+                Toast.makeText(this, "Failed to remove student: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun startDriverHomeActivity() {
@@ -97,5 +136,6 @@ class DriverActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
 
 }
