@@ -44,16 +44,12 @@ class MainActivity : AppCompatActivity() {
             if (driverSnapshot.exists()) {
                 // User is registered as a driver, navigate to the DriverLoginActivity
                 navigateToDriverLogin()
-                // ******MAKE SURE TO ADD THIS BACK IN WHEN DONE DEBUGGING********
-                //navigateTFOuttaLogin()
             } else {
                 userRef.child("Customers").child(userId).get()
                     .addOnSuccessListener { customerSnapshot ->
                         if (customerSnapshot.exists()) {
                             // User is registered as a customer, navigate to the CustomerLoginActivity
                             navigateToDriverLogin()
-                            // ADD BACK AS WELL *************
-                            //navigateTFOuttaLogin()
                         } else {
                             // User is not registered as either driver or customer, show the driver and customer buttons
                             showRoleButtons()
@@ -89,24 +85,22 @@ class MainActivity : AppCompatActivity() {
         sCustomer = findViewById(R.id.studentcustomer)
         val sModerator: Button = findViewById(R.id.studentmoderator)
 
-
-
         sModerator.setOnClickListener {
             val intent = Intent(this@MainActivity, ModeratorRegisterActivity::class.java)
             startActivity(intent)
             finish()
+        }
 
-            sDriver.setOnClickListener {
-                val intent = Intent(this@MainActivity, DriverRegisterActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
+        sDriver.setOnClickListener {
+            val intent = Intent(this@MainActivity, DriverRegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
-            sCustomer.setOnClickListener {
-                val intent = Intent(this@MainActivity, CustomerRegisterActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
+        sCustomer.setOnClickListener {
+            val intent = Intent(this@MainActivity, CustomerRegisterActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

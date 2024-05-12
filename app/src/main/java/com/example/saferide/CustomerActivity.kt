@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.widget.TextView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
@@ -91,6 +93,30 @@ class CustomerActivity : AppCompatActivity() {
     }
 
     private fun startRideRequestActivity() {
+        val db = Firebase.firestore // Get an instance of Firestore
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email?:"Unknown User"
+        val documentReference = db.collection("SafeRide_FS").document("Waitlist") //rides currentRide
+
+        // Start Firestore transaction to update the users array
+        db.runTransaction{ transaction ->
+            val snapshot = transaction.get(documentReference)
+            val users = snapshot.get("Waiting_Students") as? MutableList<String> ?: mutableListOf()
+
+            // Add user email if not already included
+            if(!users.contains(userEmail)){
+                users.add(userEmail)
+                transaction.update(documentReference, "Waiting_Students", users)
+            }
+        }.addOnSuccessListener {
+            Toast.makeText(this, "Ride requested successfully!", Toast.LENGTH_SHORT).show()
+            //Proceed to ride request activity
+            navigateRideRequestActivity()
+        }.addOnFailureListener { e ->
+            Toast.makeText(this, "Failed to request ride. Try again later.", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun navigateRideRequestActivity() {
         val intent = Intent(this, RideRequestActivity::class.java)
         startActivity(intent)
         finish()

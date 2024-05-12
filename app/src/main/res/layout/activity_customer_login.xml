@@ -50,6 +50,7 @@
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
+            android:inputType="textPassword"
             android:layout_height="55dp"
             android:textColor="@color/black"
             android:background="@android:drawable/editbox_dropdown_dark_frame"
