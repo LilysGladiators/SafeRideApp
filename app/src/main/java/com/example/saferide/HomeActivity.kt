@@ -22,8 +22,6 @@ class HomeActivity: AppCompatActivity() {
 
     private lateinit var slider: MaterialDrawerSliderView
     private lateinit var button: Button
-    private lateinit var welcomeText: TextView
-    private lateinit var requestRideButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +59,6 @@ class HomeActivity: AppCompatActivity() {
         slider.setSelection(1)
 
         button = findViewById(R.id.navigationButton)
-        welcomeText = findViewById(R.id.welcomeText)
         button.setOnClickListener {
             slider.drawerLayout?.openDrawer(slider)
         }
@@ -75,11 +72,6 @@ class HomeActivity: AppCompatActivity() {
             }
             false
         }
-
-        /*requestRideButton = findViewById(R.id.requestRideButton)
-        requestRideButton.setOnClickListener {
-            startRideRequestActivity()
-        }*/
 
     }
 

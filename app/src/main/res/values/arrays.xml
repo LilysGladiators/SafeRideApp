@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pickup_locations">
+        <item>StandBy</item>
+        <item>Southwest</item>
+        <item>Norelius</item>
+        <item>Plex</item>
+        <item>Uhler</item>
+        <item>Rundy</item>
+        <item>CollegeView</item>
+        <item>ChapelView</item>
+        <item>PrairieView</item>
+        <item>International Center</item>
+        <item>SohrePittman</item>
+        <item>Campus Center</item>
+        <item>Olin</item>
+        <item>Beck</item>
+        <item>Chapel</item>
+        <item>Mattson</item>
+        <item>Music Building</item>
+        <item>Art Building</item>
+        <item>Anderson</item>
+        <item>Nobel</item>
+        <item>Lund</item>
+        <item>Library</item>
+        <item>OldMain</item>
+        <item>ConVick</item>
+        <item>Arb</item>
+        <item>Carlson</item>
+        <item>Peterson House</item>
+        <item>Sjostrom House</item>
+        <item>Walker House</item>
+        <item>Ten House</item>
+        <item>Adolphson House</item>
+    </string-array>
+
+    <string-array name="destination_locations">
+        <item>StandBy</item>
+        <item>Southwest</item>
+        <item>Norelius</item>
+        <item>Plex</item>
+        <item>Uhler</item>
+        <item>Rundy</item>
+        <item>CollegeView</item>
+        <item>ChapelView</item>
+        <item>PrairieView</item>
+        <item>International Center</item>
+        <item>SohrePittman</item>
+        <item>Campus Center</item>
+        <item>Olin</item>
+        <item>Beck</item>
+        <item>Chapel</item>
+        <item>Mattson</item>
+        <item>Music Building</item>
+        <item>Art Building</item>
+        <item>Anderson</item>
+        <item>Nobel</item>
+        <item>Lund</item>
+        <item>Library</item>
+        <item>OldMain</item>
+        <item>ConVick</item>
+        <item>Arb</item>
+        <item>Carlson</item>
+        <item>Peterson House</item>
+        <item>Sjostrom House</item>
+        <item>Walker House</item>
+        <item>Ten House</item>
+        <item>Adolphson House</item>
+    </string-array>
+</resources>

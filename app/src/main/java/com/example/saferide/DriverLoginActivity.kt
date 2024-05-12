@@ -29,17 +29,22 @@ class DriverLoginActivity : AppCompatActivity() {
         gLogin.setOnClickListener {
             val email = gEmail.text.toString()
             val password = gPassword.text.toString()
-            gAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        // Login successful, navigate to the CustomerActivity
-                        val intent = Intent(this@DriverLoginActivity, CustomerActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        Toast.makeText(this@DriverLoginActivity, "Login error", Toast.LENGTH_SHORT).show()
+
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                gAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            // Login successful, navigate to the DriverHomeActivity
+                            val intent = Intent(this@DriverLoginActivity, DriverHomeActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(this@DriverLoginActivity, "Login error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
+            } else {
+                Toast.makeText(this@DriverLoginActivity, "Please enter email and password", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

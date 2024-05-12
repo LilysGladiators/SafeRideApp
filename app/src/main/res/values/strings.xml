@@ -25,4 +25,8 @@
     <string name="arrivalText">Your ride has arrived</string>
     <string name="welcomeText">Welcome to Safe Rides!</string>
     <string name="navigationButton">Menu</string>
+    <string name="ride_request">Ride Request</string>
+    <string name="ride_acceptance">Accept Ride</string>
+    <string name="waiting">Waiting for ride requests...</string>
+    <string name="ETA">Estimated Time of Arrival:</string>
 </resources>

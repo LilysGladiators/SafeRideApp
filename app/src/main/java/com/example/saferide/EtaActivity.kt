@@ -134,11 +134,6 @@ class EtaActivity: AppCompatActivity() {
             false
         }
 
-        /*requestRideButton = findViewById(R.id.requestRideButton)
-        requestRideButton.setOnClickListener {
-            startRideRequestActivity()
-        }*/
-
         val apiKey = "zGahvvyGYB1wCGbvdIrczIROglVCrOh2"
         val routePlanner = OnlineRoutePlanner.create(applicationContext, apiKey)
 

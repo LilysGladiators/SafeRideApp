@@ -16,19 +16,23 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <EditText
-            android:id="@+id/pickupLocationEditText"
+        <Spinner
+            android:id="@+id/pickupLocationSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/pickup_location"
-            android:inputType="text" />
+            android:entries="@array/pickup_locations"
+            android:background="@drawable/spinner_background"
+            android:textColor="@android:color/white"
+            android:popupBackground="@drawable/spinner_popup_background" />
 
-        <EditText
-            android:id="@+id/destinationEditText"
+        <Spinner
+            android:id="@+id/destinationSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/destination"
-            android:inputType="text" />
+            android:entries="@array/destination_locations"
+            android:background="@drawable/spinner_background"
+            android:textColor="@android:color/white"
+            android:popupBackground="@drawable/spinner_popup_background" />
 
         <Button
             android:id="@+id/requestRideButton"

@@ -2,10 +2,19 @@ package com.example.saferide
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
@@ -19,6 +28,10 @@ import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 
 class DriverActivity : AppCompatActivity() {
 
+    private lateinit var gAuth: FirebaseAuth
+    private lateinit var gDatabase: FirebaseDatabase
+    private lateinit var gAcceptButton: Button
+    private lateinit var gRideDetailsTextView: TextView
     private lateinit var slider: MaterialDrawerSliderView
     private lateinit var navigationButton: Button
 
@@ -26,14 +39,19 @@ class DriverActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_driver)
 
+        gAuth = FirebaseAuth.getInstance()
+        gDatabase = FirebaseDatabase.getInstance()
+
+        gAcceptButton = findViewById(R.id.buttonAcceptRide)
+        gRideDetailsTextView = findViewById(R.id.ride_details_text_view)
+
         val user = FirebaseAuth.getInstance().currentUser?.email.toString()
-        //val email = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
         val item1 = PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_home; identifier = 1 }
         val item2 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_order; identifier = 2 }
-        //val item3 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_eta; identifier = 3 }
 
         slider = findViewById(R.id.slider)
+        navigationButton = findViewById(R.id.navigationButton)
 
         slider.headerView = AccountHeaderView(this).apply {
             attachToSliderView(slider)
@@ -55,7 +73,6 @@ class DriverActivity : AppCompatActivity() {
 
         slider.setSelection(2)
 
-        navigationButton = findViewById(R.id.navigationButton)
         navigationButton.setOnClickListener {
             slider.drawerLayout?.openDrawer(slider)
         }
@@ -65,24 +82,68 @@ class DriverActivity : AppCompatActivity() {
             when (drawerItem) {
                 item1 -> startDriverHomeActivity()
                 item2 -> startDriverActivity()
-                //item3 -> startMapActivity()
             }
             false
         }
 
-        // Initialize buttons
-        val buttonAcceptRide = findViewById<Button>(R.id.buttonAcceptRide)
-        val buttonCancelRide = findViewById<Button>(R.id.buttonCancelRide)
+        // Check if the driver is logged in
+        val currentUser = gAuth.currentUser
+        if (currentUser == null) {
+            // Driver is not logged in, redirect to the login activity
+            val intent = Intent(this@DriverActivity, DriverLoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            // Driver is logged in, listen for ride requests
+            val rideRequestsRef = gDatabase.getReference("rideRequests")
+            rideRequestsRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        // Ride request found
+                        val rideRequest = snapshot.getValue(RideRequest::class.java)
+                        val rideDetails = "Pickup Location: ${rideRequest?.pickupLocation}\n" +
+                                "Destination: ${rideRequest?.destination}"
+                        gRideDetailsTextView.text = rideDetails
 
-        // Set onClick listeners for the buttons
-        buttonAcceptRide.setOnClickListener {
-            Toast.makeText(this, "Accept Ride...", Toast.LENGTH_SHORT).show()
-            // Add actual functionality here to accept a ride
-        }
+                        // Set click listener for the accept button
+                        gAcceptButton.setOnClickListener {
+                            // Update ride status to "accepted"
+                            val rideRef = gDatabase.getReference("rides").push()
+                            rideRef.child("status").setValue("accepted")
+                            rideRef.child("driverId").setValue(currentUser.uid)
 
-        buttonCancelRide.setOnClickListener {
-            Toast.makeText(this, "Cancelling Ride...", Toast.LENGTH_SHORT).show()
-            // Add actual functionality here to cancel a ride
+                            // Remove the ride requests
+                            snapshot.ref.removeValue()
+
+                            // Navigate to the ride details activity
+                            val intent = Intent(this@DriverActivity, DriverRideDetailsActivity::class.java)
+                            intent.putExtra("rideId", rideRef.key)
+                            startActivity(intent)
+                            finish()
+                        }
+                    } else {
+                        // No ride request found, display waiting message
+                        gRideDetailsTextView.text = "Waiting for ride requests..."
+                        gAcceptButton.isEnabled = false
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle database error
+                    val errorMessage = when (error.toException()) {
+                        is FirebaseNetworkException -> "Network error occurred. Please check your internet connection."
+                        is FirebaseAuthException -> "Authentication error occurred. Please log in again."
+                        is FirebaseTooManyRequestsException -> "Too many requests. Please try again later."
+                        else -> "An error occurred. Please try again later."
+                    }
+
+                    // Display the error message to the user
+                    Toast.makeText(this@DriverActivity, errorMessage, Toast.LENGTH_LONG).show()
+
+                    // Log the error for debugging purposes
+                    Log.e("DriverRideAcceptanceActivity", "Database error: ${error.message}", error.toException())
+                }
+            })
         }
     }
 
@@ -97,5 +158,4 @@ class DriverActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
 }

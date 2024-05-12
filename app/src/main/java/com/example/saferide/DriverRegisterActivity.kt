@@ -28,8 +28,12 @@ class DriverRegisterActivity : AppCompatActivity() {
         firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user: FirebaseUser? = firebaseAuth.currentUser
             if (user != null) {
+
                 Log.d(TAG, "User != null!!!")
                 /*val intent = Intent(this@DriverRegisterActivity, CustomerActivity::class.java)
+=======
+                val intent = Intent(this@DriverRegisterActivity, DriverActivity::class.java)
+>>>>>>> Stashed changes
                 startActivity(intent)
                 finish()*/
             } else {
