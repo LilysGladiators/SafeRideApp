@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+    android:backgroundTint="@color/white"
+    android:orientation="vertical"
+    tools:context=".ModeratorRegisterActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="513dp"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="62dp"
+        android:contentDescription="@string/signup_page_for_moderators"
+        android:src="@drawable/register_icon" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
+            android:backgroundTint="@color/common_google_signin_btn_text_light_disabled"
+            android:hint="@string/gustavus_email" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
+            android:backgroundTint="@color/common_google_signin_btn_text_dark_disabled"
+            android:hint="@string/gustavus_password" />
+
+
+        <Button
+            android:id="@+id/registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+

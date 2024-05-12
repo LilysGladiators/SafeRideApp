@@ -1,12 +1,9 @@
 package com.example.saferide
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.Toast
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -47,22 +44,17 @@ class MainActivity : AppCompatActivity() {
             if (driverSnapshot.exists()) {
                 // User is registered as a driver, navigate to the DriverLoginActivity
                 navigateToDriverLogin()
-                Log.d(TAG,"Driver login")
-                // ******MAKE SURE TO ADD THIS BACK IN WHEN DONE DEBUGGING********
-                //navigateTFOuttaLogin()
             } else {
-                userRef.child("Customers").child(userId).get().addOnSuccessListener { customerSnapshot ->
-                    if (customerSnapshot.exists()) {
-                        // User is registered as a customer, navigate to the CustomerLoginActivity
-                        navigateToCustomerLogin()
-                        Log.d(TAG, "Customer Login")
-                        // ADD BACK AS WELL *************
-                        //navigateTFOuttaLogin()
-                    } else {
-                        // User is not registered as either driver or customer, show the driver and customer buttons
-                        showRoleButtons()
+                userRef.child("Customers").child(userId).get()
+                    .addOnSuccessListener { customerSnapshot ->
+                        if (customerSnapshot.exists()) {
+                            // User is registered as a customer, navigate to the CustomerLoginActivity
+                            navigateToDriverLogin()
+                        } else {
+                            // User is not registered as either driver or customer, show the driver and customer buttons
+                            showRoleButtons()
+                        }
                     }
-                }
             }
         }
     }
@@ -81,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     // Sam added just so I don't have to log in every time I'm testing lol
     private fun navigateTFOuttaLogin() {
-        val intent = Intent(this, DriverRegisterActivity::class.java)
+        val intent = Intent(this, CustomerActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -91,6 +83,13 @@ class MainActivity : AppCompatActivity() {
 
         sDriver = findViewById(R.id.studentdriver)
         sCustomer = findViewById(R.id.studentcustomer)
+        val sModerator: Button = findViewById(R.id.studentmoderator)
+
+        sModerator.setOnClickListener {
+            val intent = Intent(this@MainActivity, ModeratorRegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         sDriver.setOnClickListener {
             val intent = Intent(this@MainActivity, DriverRegisterActivity::class.java)
