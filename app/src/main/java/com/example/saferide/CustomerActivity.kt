@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.widget.TextView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
@@ -36,7 +38,6 @@ class CustomerActivity : AppCompatActivity() {
         val item3 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_eta; identifier = 3 }
 
         slider = findViewById(R.id.slider)
-
         slider.headerView = AccountHeaderView(this).apply {
             attachToSliderView(slider)
             addProfiles(
@@ -47,15 +48,9 @@ class CustomerActivity : AppCompatActivity() {
                 false
             }
             withSavedInstance(savedInstanceState)
-        }
+        }//Here
 
-        slider.itemAdapter.add(
-            item1,
-            DividerDrawerItem(),
-            item2,
-            item3
-        )
-
+        slider.itemAdapter.add(item1, DividerDrawerItem(), item2, item3)
         slider.setSelection(2)
 
         text = findViewById(R.id.navigationButton)
@@ -67,7 +62,7 @@ class CustomerActivity : AppCompatActivity() {
             // do something with clicked item :D
             when (drawerItem) {
                 item1 -> startHomeActivity()
-                //item2 -> insert here
+                item2 -> startRideRequestActivity()
                 item3 -> startMapActivity()
             }
             false
@@ -84,13 +79,56 @@ class CustomerActivity : AppCompatActivity() {
         }
 
         buttonCancelRide.setOnClickListener {
-            Toast.makeText(this, "Cancelling Ride...", Toast.LENGTH_SHORT).show()
-            // Add actual functionality here to cancel a ride
+            cancelRide()
+        // Add actual functionality here to cancel a ride
         }
 
     }
 
     private fun startRideRequestActivity() {
+        val db = Firebase.firestore // Get an instance of Firestore
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email?:"Unknown User"
+        val documentReference = db.collection("SafeRide_FS").document("Waitlist") //rides currentRide
+
+        // Start Firestore transaction to update the users array
+        db.runTransaction{ transaction ->
+            val snapshot = transaction.get(documentReference)
+            val users = snapshot.get("Waiting_Students") as? MutableList<String> ?: mutableListOf()
+
+            // Add user email if not already included
+            if(!users.contains(userEmail)){
+                users.add(userEmail)
+                transaction.update(documentReference, "Waiting_Students", users)
+            }
+        }.addOnSuccessListener {
+            Toast.makeText(this, "Ride requested successfully!", Toast.LENGTH_SHORT).show()
+            //Proceed to ride request activity
+            navigateRideRequestActivity()
+        }.addOnFailureListener { e ->
+            Toast.makeText(this, "Failed to request ride. Try again later.", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun cancelRide() {
+        val db = Firebase.firestore
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email ?: "Unknown User"
+        val waitlistRef = db.collection("SafeRide_FS").document("Waitlist")
+
+        db.runTransaction { transaction ->
+            val snapshot = transaction.get(waitlistRef)
+            val users = snapshot.get("Waiting_Students") as? MutableList<String> ?: mutableListOf()
+            if (users.contains(userEmail)) {
+                users.remove(userEmail)
+                transaction.update(waitlistRef, "Waiting_Students", users)
+            }
+        }.addOnSuccessListener {
+            Toast.makeText(this, "Ride cancelled successfully!", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener { e ->
+            Toast.makeText(this, "Failed to cancel ride. Try again later.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun navigateRideRequestActivity() {
         val intent = Intent(this, RideRequestActivity::class.java)
         startActivity(intent)
         finish()

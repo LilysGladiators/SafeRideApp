@@ -15,6 +15,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
@@ -34,6 +37,7 @@ class DriverActivity : AppCompatActivity() {
     private lateinit var gRideDetailsTextView: TextView
     private lateinit var slider: MaterialDrawerSliderView
     private lateinit var navigationButton: Button
+    private var currentStudent: Map<String, Any>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,21 +60,21 @@ class DriverActivity : AppCompatActivity() {
         slider.headerView = AccountHeaderView(this).apply {
             attachToSliderView(slider)
             addProfiles(
-                ProfileDrawerItem().apply { nameText = "Student Driver"; descriptionText = user; iconRes = R.drawable.ic_launcher_foreground; identifier = 102}
+                ProfileDrawerItem().apply {
+                    nameText = "Student Driver"
+                    descriptionText = user
+                    iconRes = R.drawable.ic_launcher_foreground
+                    identifier = 102
+                }
             )
-            onAccountHeaderListener = { view, profile, current ->
+            onAccountHeaderListener = { _, _, _ ->
                 //react to profile changes
                 false
             }
             withSavedInstance(savedInstanceState)
         }
 
-        slider.itemAdapter.add(
-            item1,
-            DividerDrawerItem(),
-            item2
-        )
-
+        slider.itemAdapter.add(item1, DividerDrawerItem(), item2)
         slider.setSelection(2)
 
         navigationButton.setOnClickListener {
@@ -104,22 +108,13 @@ class DriverActivity : AppCompatActivity() {
                         val rideDetails = "Pickup Location: ${rideRequest?.pickupLocation}\n" +
                                 "Destination: ${rideRequest?.destination}"
                         gRideDetailsTextView.text = rideDetails
-
                         // Set click listener for the accept button
                         gAcceptButton.setOnClickListener {
-                            // Update ride status to "accepted"
-                            val rideRef = gDatabase.getReference("rides").push()
-                            rideRef.child("status").setValue("accepted")
-                            rideRef.child("driverId").setValue(currentUser.uid)
-
-                            // Remove the ride requests
-                            snapshot.ref.removeValue()
-
-                            // Navigate to the ride details activity
-                            val intent = Intent(this@DriverActivity, DriverRideDetailsActivity::class.java)
-                            intent.putExtra("rideId", rideRef.key)
-                            startActivity(intent)
-                            finish()
+                            currentStudent?.let {
+                                removeFromQueue(it)
+                                Toast.makeText(this@DriverActivity, R.string.ride_accepted, Toast.LENGTH_SHORT).show()
+                                // Add actual functionality here to accept a ride
+                            } ?: Toast.makeText(this@DriverActivity, "No ride to accept", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         // No ride request found, display waiting message
@@ -144,7 +139,42 @@ class DriverActivity : AppCompatActivity() {
                     Log.e("DriverRideAcceptanceActivity", "Database error: ${error.message}", error.toException())
                 }
             })
+
+            // Fetch the next student in the queue when activity starts
+            fetchNextStudentInQueue()
         }
+    }
+
+    private fun fetchNextStudentInQueue() {
+        val db = Firebase.firestore
+        val waitlistRef = db.collection("SafeRide_FS").document("Waitlist")
+
+        waitlistRef.get().addOnSuccessListener { document ->
+            val waitingList = document["Waiting_Students"] as? List<Map<String, Any>> ?: listOf()
+            if (waitingList.isNotEmpty()) {
+                val sortedList = waitingList.sortedBy { (it["timestamp"] as? com.google.firebase.Timestamp)?.seconds ?: 0L }
+                currentStudent = sortedList.firstOrNull()
+                currentStudent?.let {
+                    Toast.makeText(this, "Next ride request: ${it["studentId"]}", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "No ride requests currently", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener { e ->
+            Toast.makeText(this, "Error retrieving waitlist: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun removeFromQueue(student: Map<String, Any>) {
+        val db = Firebase.firestore
+        val waitlistRef = db.collection("SafeRide_FS").document("Waitlist")
+        waitlistRef.update("Waiting_Students", FieldValue.arrayRemove(student))
+            .addOnSuccessListener {
+                currentStudent = null
+                Toast.makeText(this, "Student removed from queue", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to remove student: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun startDriverHomeActivity() {

@@ -2,13 +2,15 @@
     <string name="app_name">Safe Ride</string>
     <string name="driver">I\'m a Student Driver</string>
     <string name="customer">I\'m a Student Customer</string>
+    <string name="moderator">I\'m a Moderator</string>
     <string name="gustavus_email">Gustavus email</string>
     <string name="gustavus_password">Gustavus password</string>
     <string name="login">LogIn</string>
     <string name="register">Register</string>
     <string name="welcome_page_for_app">Welcome Page</string>
     <string name="signup_page_for_drivers">The signup page for the drivers</string>
-    <string name="navigation_text">Make me a button of some sort</string>
+    <string name="signup_page_for_moderators">The signup page for the moderators</string>
+    <string name="test_text">Make me a button of some sort</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_settings">Settings</string>
     <string name="drawer_item_order">Request/Cancel Ride</string>
@@ -29,4 +31,8 @@
     <string name="ride_acceptance">Accept Ride</string>
     <string name="waiting">Waiting for ride requests...</string>
     <string name="ETA">Estimated Time of Arrival:</string>
+    <string name="ride_accepted">Ride Accepted!</string>
+
+
+
 </resources>

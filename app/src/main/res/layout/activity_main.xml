@@ -30,6 +30,14 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/studentmoderator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/moderator"
+            android:textColor="#000000"/>
+
+
+        <Button
             android:id="@+id/studentdriver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
