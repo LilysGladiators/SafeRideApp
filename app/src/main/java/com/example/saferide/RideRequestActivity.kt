@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -21,13 +22,25 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.tomtom.sdk.location.GeoPoint
+
 class RideRequestActivity : AppCompatActivity(), OnMapReadyCallback {
-    private lateinit var pickupLocationEditText: EditText
-    private lateinit var destinationEditText: EditText
+    private lateinit var pickupLocationSpinner: Spinner
+    private lateinit var destinationSpinner: Spinner
     private lateinit var requestRideButton: Button
     private lateinit var database: DatabaseReference
     private lateinit var googleMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    val pickupLocations = mapOf(
+        "StandBy" to GeoPoint(44.32295, -93.971697),
+        // ... (other pickup locations)
+    )
+
+    val destinationLocations = mapOf(
+        "StandBy" to GeoPoint(44.32295, -93.971697),
+        // ... (other destination locations)
+    )
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
@@ -37,8 +50,8 @@ class RideRequestActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ride_request)
 
-        pickupLocationEditText = findViewById(R.id.pickupLocationEditText)
-        destinationEditText = findViewById(R.id.destinationEditText)
+        pickupLocationSpinner = findViewById(R.id.pickupLocationSpinner)
+        destinationSpinner = findViewById(R.id.destinationSpinner)
         requestRideButton = findViewById(R.id.requestRideButton)
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
@@ -49,9 +62,7 @@ class RideRequestActivity : AppCompatActivity(), OnMapReadyCallback {
         database = FirebaseDatabase.getInstance().reference
 
         requestRideButton.setOnClickListener {
-            val pickupLocation = pickupLocationEditText.text.toString()
-            val destination = destinationEditText.text.toString()
-            requestRide(pickupLocation, destination)
+            requestRide()
         }
     }
 
@@ -94,16 +105,28 @@ class RideRequestActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun requestRide(pickupLocation: String, destination: String) {
+    private fun requestRide() {
+        val selectedPickupLocation = pickupLocationSpinner.selectedItem.toString()
+        val pickupGeoPoint = pickupLocations[selectedPickupLocation]
+
+        val selectedDestinationLocation = destinationSpinner.selectedItem.toString()
+        val destinationGeoPoint = destinationLocations[selectedDestinationLocation]
+
         val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+        val rideRequest = RideRequest(
+            userId = userId,
+            pickupLocation = selectedPickupLocation,
+            pickupLatitude = pickupGeoPoint?.latitude,
+            pickupLongitude = pickupGeoPoint?.longitude,
+            destinationLocation = selectedDestinationLocation,
+            destinationLatitude = destinationGeoPoint?.latitude,
+            destinationLongitude = destinationGeoPoint?.longitude,
+            status = "pending"
+        )
+
         val rideRef = database.child("rideRequests").push()
         val rideId = rideRef.key
-
-        val rideRequest = HashMap<String, Any>()
-        rideRequest["userId"] = userId!!
-        rideRequest["pickupLocation"] = pickupLocation
-        rideRequest["destination"] = destination
-        rideRequest["status"] = "pending"
 
         rideRef.setValue(rideRequest)
             .addOnSuccessListener {
@@ -117,12 +140,13 @@ class RideRequestActivity : AppCompatActivity(), OnMapReadyCallback {
                 showErrorMessage(it.message)
             }
     }
+
     private fun showSuccessMessage() {
         Toast.makeText(this, "Ride request sent successfully", Toast.LENGTH_SHORT).show()
     }
 
     private fun navigateToWaitingScreen() {
-        val intent = Intent(this, WaitingActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -131,3 +155,14 @@ class RideRequestActivity : AppCompatActivity(), OnMapReadyCallback {
         Toast.makeText(this, "Failed to send ride request: $errorMessage", Toast.LENGTH_SHORT).show()
     }
 }
+
+data class RideRequest(
+    val userId: String? = null,
+    val pickupLocation: String? = null,
+    val pickupLatitude: Double? = null,
+    val pickupLongitude: Double? = null,
+    val destinationLocation: String? = null,
+    val destinationLatitude: Double? = null,
+    val destinationLongitude: Double? = null,
+    val status: String? = null
+)

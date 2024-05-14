@@ -69,20 +69,14 @@ class CustomerActivity : AppCompatActivity() {
         }
         // Initialize buttons
         val buttonRequestRide = findViewById<Button>(R.id.buttonRequestRide)
-        val buttonCancelRide = findViewById<Button>(R.id.buttonCancelRide)
+        //val buttonCancelRide = findViewById<Button>(R.id.buttonCancelRide)
 
         // Set onClick listeners for the buttons
         buttonRequestRide.setOnClickListener {
             startRideRequestActivity()
-            //Toast.makeText(this, "Requesting Ride...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Requesting Ride...", Toast.LENGTH_SHORT).show()
             // Add actual functionality here to request a ride
         }
-
-        buttonCancelRide.setOnClickListener {
-            cancelRide()
-        // Add actual functionality here to cancel a ride
-        }
-
     }
 
     private fun startRideRequestActivity() {
