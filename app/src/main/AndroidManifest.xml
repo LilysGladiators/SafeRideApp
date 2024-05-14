@@ -67,15 +67,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".DriverMapActivity"
-            android:exported="false" />
-
-        <activity
             android:name=".NavigationActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".WaitingActivity"
             android:exported="false" />
 
         <activity
@@ -88,6 +80,22 @@
 
         <activity
             android:name=".DriverRideDetailsActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".StartAndCompleteRidesActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".RideInProgressActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".RideCompleteActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".RideActivity"
             android:exported="false"/>
 
         <meta-data

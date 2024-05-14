@@ -2,9 +2,9 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
-    android:background="@drawable/background_welcome"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_welcome">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,9 +15,9 @@
             android:id="@+id/navigationButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/menu_icon"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/menu_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,22 +31,35 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:src="@drawable/customer_waiting"
-                app:layout_constraintBottom_toTopOf="@+id/waitingText"
+                app:layout_constraintBottom_toTopOf="@+id/etaText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/etaText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/eta_placeholder"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_purple"
+                android:textSize="45sp"
+                app:layout_constraintBottom_toTopOf="@+id/waitingText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/waitingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="You are 1st in line"
-                android:textSize="45sp"
                 android:textColor="@android:color/holo_purple"
+                android:textSize="35sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

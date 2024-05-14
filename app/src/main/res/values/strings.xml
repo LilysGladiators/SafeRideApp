@@ -32,7 +32,11 @@
     <string name="waiting">Waiting for ride requests...</string>
     <string name="ETA">Estimated Time of Arrival:</string>
     <string name="ride_accepted">Ride Accepted!</string>
-
-
-
+    <string name="start_ride">Start Ride</string>
+    <string name="complete_ride">Complete Ride</string>
+    <string name="estimated_time_of_arrival">"Estimated Time of Arrival: "</string>
+    <string name="pickup_location_format">Pickup Location: %1$.6f, %2$.6f</string>
+    <string name="destination_format">Destination: %1$.6f, %2$.6f</string>
+    <string name="drawer_item_start_ride">Start Ride</string>
+    <string name="ride_image">progress image</string>
 </resources>

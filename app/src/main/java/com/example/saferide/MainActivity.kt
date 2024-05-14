@@ -44,9 +44,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun showRoleButtons() {
         sModerator.setOnClickListener {
-            val intent = Intent(this@MainActivity, ModeratorRegisterActivity::class.java)
-            startActivity(intent)
-            finish()
+            val currentUser = gAuth.currentUser
+            if (currentUser != null) {
+                // User is already registered, navigate to the DriverLoginActivity
+                Log.d(TAG, "sModerator onClick: User is already registered, navigating to ModeratorLoginActivity")
+                navigateToModeratorLogin()
+            } else {
+                // User is not registered, navigate to the DriverRegisterActivity
+                Log.d(TAG, "sModerator onClick: User is not registered, navigating to ModeratorRegisterActivity")
+                navigateToModeratorRegistration()
+            }
         }
 
         sDriver.setOnClickListener {
@@ -118,17 +125,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Sam added just so I don't have to log in every time I'm testing lol
-    fun navigateTFOuttaLogin() {
+
+   private fun navigateTFOuttaLogin() {
         val intent = Intent(this, DriverHomeActivity::class.java)
         startActivity(intent)
         finish()
-    }
+   }
 
-    fun navigateTFOuttaCustomerLogin() {
-        val intent = Intent(this, RideRequestActivity::class.java)
+    private fun navigateTFOuttaCustomerLogin() {
+       val intent = Intent(this, CustomerActivity::class.java)
         startActivity(intent)
         finish()
-    }
+   }
 
     fun navigateToDriverRegistration() {
         Log.d(TAG, "navigateToDriverRegistration: Navigating to DriverRegisterActivity")

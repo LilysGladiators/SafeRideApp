@@ -35,7 +35,7 @@ class DriverLoginActivity : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             // Login successful, navigate to the DriverHomeActivity
-                            val intent = Intent(this@DriverLoginActivity, DriverHomeActivity::class.java)
+                            val intent = Intent(this@DriverLoginActivity, StartAndCompleteRidesActivity::class.java)
                             startActivity(intent)
                             finish()
                         } else {

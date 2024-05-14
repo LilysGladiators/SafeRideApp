@@ -53,6 +53,7 @@ class DriverActivity : AppCompatActivity() {
 
         val item1 = PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_home; identifier = 1 }
         val item2 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_order; identifier = 2 }
+        val item3 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_start_ride; identifier = 3 }
 
         slider = findViewById(R.id.slider)
         navigationButton = findViewById(R.id.navigationButton)
@@ -68,13 +69,19 @@ class DriverActivity : AppCompatActivity() {
                 }
             )
             onAccountHeaderListener = { _, _, _ ->
-                //react to profile changes
                 false
             }
             withSavedInstance(savedInstanceState)
         }
 
-        slider.itemAdapter.add(item1, DividerDrawerItem(), item2)
+        slider.itemAdapter.add(
+            item1,
+            DividerDrawerItem(),
+            item2,
+            DividerDrawerItem(),
+            item3
+        )
+
         slider.setSelection(2)
 
         navigationButton.setOnClickListener {
@@ -82,10 +89,10 @@ class DriverActivity : AppCompatActivity() {
         }
 
         slider.onDrawerItemClickListener = { _, drawerItem, _ ->
-            // do something with clicked item :D
             when (drawerItem) {
                 item1 -> startDriverHomeActivity()
                 item2 -> startDriverActivity()
+                item3 -> startStartAndCompleteRidesActivity()
             }
             false
         }
@@ -106,18 +113,24 @@ class DriverActivity : AppCompatActivity() {
                         // Ride request found
                         val rideRequest = snapshot.getValue(RideRequest::class.java)
                         val rideDetails = "Pickup Location: ${rideRequest?.pickupLocation}\n" +
-                                "Destination: ${rideRequest?.destination}"
+                                "Destination: ${rideRequest?.destinationLocation}"
                         gRideDetailsTextView.text = rideDetails
                         // Set click listener for the accept button
                         gAcceptButton.setOnClickListener {
+                            val intent = Intent(this@DriverActivity, StartAndCompleteRidesActivity::class.java)
+
                             currentStudent?.let {
                                 removeFromQueue(it)
                                 Toast.makeText(this@DriverActivity, R.string.ride_accepted, Toast.LENGTH_SHORT).show()
                                 // Add actual functionality here to accept a ride
                             } ?: Toast.makeText(this@DriverActivity, "No ride to accept", Toast.LENGTH_SHORT).show()
                         }
+
+                        // No available ride request found, display waiting message
+                        gRideDetailsTextView.text = "Waiting for ride requests..."
+                        gAcceptButton.isEnabled = false
                     } else {
-                        // No ride request found, display waiting message
+                        // No ride requests found, display waiting message
                         gRideDetailsTextView.text = "Waiting for ride requests..."
                         gAcceptButton.isEnabled = false
                     }
@@ -179,6 +192,12 @@ class DriverActivity : AppCompatActivity() {
 
     private fun startDriverHomeActivity() {
         val intent = Intent(this, DriverHomeActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun startStartAndCompleteRidesActivity() {
+        val intent = Intent(this, StartAndCompleteRidesActivity::class.java)
         startActivity(intent)
         finish()
     }

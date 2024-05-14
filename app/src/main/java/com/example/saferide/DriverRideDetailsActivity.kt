@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class DriverRideDetailsActivity : AppCompatActivity() {
+
     private lateinit var gDatabase: FirebaseDatabase
     private lateinit var gRideDetailsTextView: TextView
 
@@ -24,22 +25,15 @@ class DriverRideDetailsActivity : AppCompatActivity() {
         gDatabase = FirebaseDatabase.getInstance()
         gRideDetailsTextView = findViewById(R.id.ride_details_text_view)
 
-        data class Ride(
-            val pickupLocation: String = "",
-            val destination: String = "",
-            val status: String = ""
-        )
-
         val rideId = intent.getStringExtra("rideId")
         if (rideId != null) {
             val rideRef = gDatabase.getReference("rides").child(rideId)
             rideRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
-                        val ride = snapshot.getValue(Ride::class.java)
+                        val ride = snapshot.getValue(RideActivity::class.java)
                         val rideDetails = "Pickup Location: ${ride?.pickupLocation}\n" +
-                                "Destination: ${ride?.destination}\n" +
-                                "Status: ${ride?.status}"
+                                "Destination: ${ride?.destinationLocation}\n"
                         gRideDetailsTextView.text = rideDetails
                     }
                 }
@@ -61,7 +55,5 @@ class DriverRideDetailsActivity : AppCompatActivity() {
                 }
             })
         }
-
-
     }
 }

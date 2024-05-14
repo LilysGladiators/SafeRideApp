@@ -95,7 +95,7 @@ class DriverHomeActivity : AppCompatActivity() {
             val rideRequestsRef = database.getReference("rideRequests")
             rideRequestsRef.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val rideRequest = snapshot.getValue(RideRequest::class.java)
+                    val rideRequest = snapshot.getValue(RideRequestActivity::class.java)
                     if (rideRequest != null) {
                         // Ride request received, navigate to DriverRideAcceptanceActivity
                         val intent = Intent(this@DriverHomeActivity, DriverActivity::class.java)
@@ -113,7 +113,7 @@ class DriverHomeActivity : AppCompatActivity() {
             })
 
             // Display the "... people currently waiting for rides" text
-            waitingText.text = "0 people currently waiting for rides"
+            waitingText.text = "0 People In Line"
         }
     }
 
